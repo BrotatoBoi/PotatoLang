@@ -7,7 +7,7 @@ $ ~~ ------------------------------------------------------- ~~ $
 
 
 $ ~ Create Variables. ~ $
-set name ""
+set name string ""
 
 
 $ ~ Get the users name and greet them. ~ $
