@@ -1,4 +1,4 @@
-# PotatoLang
+# PotatoLangV0.1.0
 A custom programming language I am making. It is simple to use and has the extension of <em>.pot</em>
 
 # Usage:
