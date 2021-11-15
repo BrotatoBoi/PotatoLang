@@ -9,84 +9,107 @@
 import os
 
 
-# ~ Run Potato. ~ #
-def run(file):
-    print(f"Starting up file {file}")
+class Interpreter:
+    def __init__(self):
+        self.variables = {}
 
-    os.system('clear' if os.name == 'posix' else 'cls')
+    def set_var(self, varName, varType, value):
+        if varType == "number":
+            value = int(value)
+        elif varType == "decimal":
+            value = float(value)
+        elif varType == "bool":
+            value = bool(value)
+        elif varType == "string":
+            value = str(value)
 
-    # ~ Open the file. ~ #
-    with open(file, 'r') as f:
-        variables = {}
+        self.variables[varName] = value
 
-        # ~ Read each line ~ #
-        for line in f:
-            # ~ Check if the line is a comment. ~ #
-            if line.startswith('$'):
-                # ~ If it is, skip it. ~ #
-                continue
+    def get_var(self, varName, message=""):
+        message+=" "
+        if varName in self.variables:
+            self.variables[varName] = input(' '.join(message))
+        else:
+            print(f"ERROR NO VARIABLE NAMED: {varName}")
+
+    def say(self, message):
+        inString = False
+        output = ''
+
+        for word in message:
+            if word in self.variables:
+                output += self.variables[word]
             else:
-                # ~ If it isn't, split it into a list. ~ #
-                line = line.split()
+                for char in word:
+                    if char == '"':
+                        inString = not inString
+                    elif inString:
+                        output += char
 
-                # ~ Check if the line is not empty. ~ #
-                if line:
-                    if line[0] == 'say':
-                        inString = False
-                        output = ''
-                        message = ' '.join(line[1:]).split(' ')
+                output += ' '
 
-                        # ~ Loop through the message. ~ #
-                        for word in message:
-                            # ~ Check if the word is a variable. ~ #
-                            if word in variables:
-                                # ~ If it is, add it to the output. ~ #
-                                output += variables[word]
-                            # ~ If it isn't, add it to the output. ~ #
-                            else:
-                                for char in word:
-                                    if char == '"':
-                                        inString = not inString
-                                    elif inString:
-                                        output += char
+        print(output)
 
-                                output += ' '
+    def run(self, file):
+        print(f"Starting up file {file}")
 
-                        # ~ Print the output. ~ #
-                        print(output)
+        os.system('clear' if os.name == 'posix' else 'cls')
 
-                    # ~ Check if the line is a variable. ~ #
-                    elif line[0] == 'set':
-                        # ~ If it is, set the variable. ~ #
-                        variables[line[1]] = ' '.join(line[2:])
+        with open(file, 'r') as f:
+            for line in f:
+                if line.startswith('$'):
+                    continue
 
-                    # ~ Check if the line is user input. ~ #
-                    elif line[0] == 'get':
-                        # ~ If it is, get the user input. ~ #
-                        variables[line[1]] = input(' '.join(line[2:])+' ')
+                else:
+                    line = line.split()
 
-                    else:
-                        print(f"ERROR ON: {line}")
-                        break
+                    if line:
+                        if line[0] == 'say':
+                            self.say(line[1:])
+                        
+                        elif line[0] == 'set':
+                            self.set_var(line[1], line[2], line[3])
 
-# ~ Main Loop. ~ #
-while True:
+                        elif line[0] == 'get':
+                            self.get_var(line[1], line[2:])
 
-    # ~ Get command. ~ #
-    cmd = input(">> ")
+                        else:
+                            print(f"ERROR ON: {line}")
 
-    # ~ Process Command. ~ #
-    if cmd == "exit": # ~ Exit Loop. ~
-        break
-    elif cmd.startswith("run"): # ~ Run a Potato File. ~ #
-        file = cmd.split(" ")[1]
-        run(file)
-    elif cmd == "help":
-        print("""
-        Commands:
-        run <file> - Run a potato file.
-        exit - Exit the interpreter.
-        help - Show this help message.
-        """)
-    else:
-        print("Invalid command!")
+
+class Main:
+    def __init__(self):
+        self.interpreter = Interpreter()
+        self._isRunning = True
+
+        self.execute()
+
+    def proc_command(self, command):
+        if command == "exit":
+            self._isRunning = False
+
+        elif command.startswith("run"):
+            file = command.split(" ")[1]
+            self.interpreter.run(file)
+
+        elif command == "help":
+            print("""
+            Commands:
+            run <file> - Run a potato file.
+            exit - Exit the interpreter.
+            help - Show this help message.
+            """)
+        
+        else:
+            print("Invalid command!")
+
+    def execute(self):
+        while self._isRunning:
+            cmd = input(">> ")
+
+            self.proc_command(cmd)
+
+
+if __name__ == "__main__":
+    Main()
+
