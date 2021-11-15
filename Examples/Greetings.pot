@@ -9,8 +9,12 @@ $ ~~ ------------------------------------------------------- ~~ $
 $ ~ Create Variables. ~ $
 set name string ""
 
+clean
 
 $ ~ Get the users name and greet them. ~ $
 say "Hello, what is your name?"
 get name Name >> 
+
+clean
+
 say "Hello," name "!"

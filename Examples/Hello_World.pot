@@ -6,4 +6,6 @@ $ ~~ - Description: A simple "Hello World!" program. - ~~ $
 $ ~~ ------------------------------------------------- ~~ $
 
 
+clean
+
 say "Hello, World!"
