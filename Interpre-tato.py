@@ -53,8 +53,6 @@ class Interpreter:
     def run(self, file):
         print(f"Starting up file {file}")
 
-        os.system('clear' if os.name == 'posix' else 'cls')
-
         with open(file, 'r') as f:
             for line in f:
                 if line.startswith('$'):
@@ -72,7 +70,9 @@ class Interpreter:
 
                         elif line[0] == 'get':
                             self.get_var(line[1], line[2:])
-
+                        
+                        elif line[0] == 'clean':
+                            os.system('clear' if os.name == 'posix' else 'cls')
                         else:
                             print(f"ERROR ON: {line}")
 
