@@ -1,0 +1,16 @@
+$ ~~ ------------------------------------------------------- ~~ $
+$ ~~ -------- Programmer: AJ Cassell (@BrotatoBoi) --------- ~~ $
+$ ~~ --------------- Program Name: Greetings. -------------- ~~ $
+$ ~~ --------------- Date: November/15/2021. --------------- ~~ $
+$ ~~ - Description: A simple program that greets the user. - ~~ $
+$ ~~ ------------------------------------------------------- ~~ $
+
+
+$ ~ Create Variables. ~ $
+set name ""
+
+
+$ ~ Get the users name and greet them. ~ $
+say "Hello, what is your name?"
+get name Name >> 
+say "Hello," name "!"

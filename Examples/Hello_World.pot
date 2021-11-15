@@ -1,0 +1,9 @@
+$ ~~ ------------------------------------------------- ~~ $
+$ ~~ ----- Programmer: AJ Cassell (@BrotatoBoi) ------ ~~ $
+$ ~~ ----------- Program Name: Hello World. ---------- ~~ $
+$ ~~ ------------ Date: November/15/2021. ------------ ~~ $
+$ ~~ - Description: A simple "Hello World!" program. - ~~ $
+$ ~~ ------------------------------------------------- ~~ $
+
+
+say "Hello, World!"
