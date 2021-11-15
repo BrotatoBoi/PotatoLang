@@ -21,4 +21,4 @@ To get user input: <code>get [VARIABLE NAME] [MESSAGE]</code>
 
   
 # Notes:
-  You may notice I end comment with another '$' at the end but that is just to make it look nice.
+  You may notice I end comments with another '$' at the end but that is just to make it look nice.
