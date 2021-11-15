@@ -1,0 +1,7 @@
+$ Testing my new language! $
+
+set name ""
+
+say "Hello, who are you?"
+get name Name >> 
+say "Hello," name "!"
