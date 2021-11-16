@@ -38,13 +38,13 @@ class Interpreter:
 
         for word in message:
             if word in self.variables:
-                output += self.variables[word]
+                output += str(self.variables[word])
             else:
                 for char in word:
                     if char == '"':
                         inString = not inString
                     elif inString:
-                        output += char
+                        output += str(char)
 
                 output += ' '
 
@@ -73,6 +73,73 @@ class Interpreter:
                         
                         elif line[0] == 'clean':
                             os.system('clear' if os.name == 'posix' else 'cls')
+
+                        elif line[0] == 'if':
+                            var1 = line[1]
+                            operator = line[2]
+                            var2 = line[3]
+                            isElse = False
+                            ifBlock = []
+                            elseBlock = []
+                            elseIndex = None
+
+                            ib = []
+
+                            for word in line[4:]:
+                                if word == 'else':
+                                    isElse = True
+                                    elseIndex = line.index(word)
+                                    break
+
+                                else:
+                                    ib.append(word)
+                            
+                            ifBlock.append(ib)
+
+                            if isElse:
+                                eb = []
+                                for word in line[elseIndex+1:]:
+                                    eb.append(word)
+
+                                elseBlock.append(eb)
+
+                                isElse = False
+                            
+
+                            if operator == 'equals':
+                                if self.variables[var1] == self.variables[var2]:
+                                    for line in ifBlock:
+                                        if line[0] == 'say':
+                                            self.say(line[1:])
+                                        
+                                        elif line[0] == 'set':
+                                            self.set_var(line[1], line[2], line[3])
+
+                                        elif line[0] == 'get':
+                                            self.get_var(line[1], line[2:])
+
+                                        elif line[0] == 'clean':
+                                            os.system('clear' if os.name == 'posix' else 'cls')
+
+                                        elif line[0] == 'if':
+                                            print("TO BE DONE")
+                                else:
+                                    for line in elseBlock:
+                                        if line[0] == 'say':
+                                            self.say(line[1:])
+
+                                        elif line[0] == 'set':
+                                            self.set_var(line[1], line[2], line[3])
+
+                                        elif line[0] == 'get':
+                                            self.get_var(line[1], line[2:])
+
+                                        elif line[0] == 'clean':
+                                            os.system('clear' if os.name == 'posix' else 'cls')
+
+                                        elif line[0] == 'if':
+                                            print("TO BE DONE")
+
                         else:
                             print(f"ERROR ON: {line}")
 
