@@ -13,6 +13,7 @@ class Interpreter:
     def __init__(self):
         self.variables = {}
 
+
     def set_var(self, varName, varType, value):
         if varType == "number":
             value = int(value)
@@ -25,6 +26,7 @@ class Interpreter:
 
         self.variables[varName] = value
 
+
     def get_var(self, varName, message=""):
         message+=" "
         if varName in self.variables:
@@ -32,12 +34,13 @@ class Interpreter:
         else:
             print(f"ERROR NO VARIABLE NAMED: {varName}")
 
+
     def say(self, message):
         inString = False
         output = ''
 
         for word in message:
-            if word in self.variables:
+            if word in self.variables and not inString:
                 output += str(self.variables[word])
             else:
                 for char in word:
@@ -50,99 +53,86 @@ class Interpreter:
 
         print(output)
 
+
+    def if_statement(self, statement):
+        statementIndex = 0
+        condition = []
+        ifBlock = []
+        elseBlock = []
+        
+        for word in statement:
+            if word == 'then':
+                statementIndex = statement.index(word)+1
+                break
+            else:
+                condition.append(word)
+
+        ib = []
+        for word in statement[statementIndex:]:
+            if word == 'else':
+                statementIndex = statement.index(word)+1
+                break
+            else:
+                if word == ";":
+                    ifBlock.append(ib)
+                    ib = []
+                else:
+                    ib.append(word)
+        ifBlock.append(ib)
+
+        eb = []
+        for word in statement[statementIndex:]:
+            if word == ';':
+                elseBlock.append(eb)
+                eb = []
+            else:
+                eb.append(word)
+        elseBlock.append(eb)
+
+        var1 = condition[0]
+        operator = condition[1]
+        var2 = condition[2]
+
+        if operator == 'equals':
+            if self.variables[var1] == self.variables[var2]:
+                for line in ifBlock:
+                    self.proc_line(line)
+            else:
+                for line in elseBlock:
+                    self.proc_line(line)
+
+
+    def proc_line(self, line):
+            if line:
+                if line[0] == '$':
+                    pass
+                elif line[0] == 'say':
+                    self.say(line[1:])
+                        
+                elif line[0] == 'set':
+                    self.set_var(line[1], line[2], line[3])
+
+                elif line[0] == 'get':
+                    self.get_var(line[1], line[2:])
+                        
+                elif line[0] == 'clean':
+                    os.system('clear' if os.name == 'posix' else 'cls')
+
+                elif line[0] == 'if':
+                    self.if_statement(line[1:])
+                           
+                else:
+                    print(f"ERROR ON: {line}")
+            else:
+                pass
+
+
     def run(self, file):
         print(f"Starting up file {file}")
 
         with open(file, 'r') as f:
             for line in f:
-                if line.startswith('$'):
-                    continue
-
-                else:
-                    line = line.split()
-
-                    if line:
-                        if line[0] == 'say':
-                            self.say(line[1:])
-                        
-                        elif line[0] == 'set':
-                            self.set_var(line[1], line[2], line[3])
-
-                        elif line[0] == 'get':
-                            self.get_var(line[1], line[2:])
-                        
-                        elif line[0] == 'clean':
-                            os.system('clear' if os.name == 'posix' else 'cls')
-
-                        elif line[0] == 'if':
-                            var1 = line[1]
-                            operator = line[2]
-                            var2 = line[3]
-                            isElse = False
-                            ifBlock = []
-                            elseBlock = []
-                            elseIndex = None
-
-                            ib = []
-
-                            for word in line[4:]:
-                                if word == 'else':
-                                    isElse = True
-                                    elseIndex = line.index(word)
-                                    break
-
-                                else:
-                                    ib.append(word)
-                            
-                            ifBlock.append(ib)
-
-                            if isElse:
-                                eb = []
-                                for word in line[elseIndex+1:]:
-                                    eb.append(word)
-
-                                elseBlock.append(eb)
-
-                                isElse = False
-                            
-
-                            if operator == 'equals':
-                                if self.variables[var1] == self.variables[var2]:
-                                    for line in ifBlock:
-                                        if line[0] == 'say':
-                                            self.say(line[1:])
-                                        
-                                        elif line[0] == 'set':
-                                            self.set_var(line[1], line[2], line[3])
-
-                                        elif line[0] == 'get':
-                                            self.get_var(line[1], line[2:])
-
-                                        elif line[0] == 'clean':
-                                            os.system('clear' if os.name == 'posix' else 'cls')
-
-                                        elif line[0] == 'if':
-                                            print("TO BE DONE")
-                                else:
-                                    for line in elseBlock:
-                                        if line[0] == 'say':
-                                            self.say(line[1:])
-
-                                        elif line[0] == 'set':
-                                            self.set_var(line[1], line[2], line[3])
-
-                                        elif line[0] == 'get':
-                                            self.get_var(line[1], line[2:])
-
-                                        elif line[0] == 'clean':
-                                            os.system('clear' if os.name == 'posix' else 'cls')
-
-                                        elif line[0] == 'if':
-                                            print("TO BE DONE")
-
-                        else:
-                            print(f"ERROR ON: {line}")
-
+                self.proc_line(line.split())
 
 class Main:
     def __init__(self):
