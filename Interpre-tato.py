@@ -21,7 +21,7 @@ class Interpreter:
             value = float(value)
         elif varType == "bool":
             value = bool(value)
-        elif varType == "string":
+        elif varType == "words":
             value = str(value)
 
         self.variables[varName] = value

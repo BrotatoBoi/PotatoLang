@@ -1,5 +1,14 @@
 $ Test file
-set num1 number 5
-set num2 number 8
+$Error
+set guess string ""
+set answer string Ketchup
+set points number 0
 
-if num1 equals num2 say "yes" else say "no"
+get guess Red condiment on a burger >> 
+
+if guess equals answer then say "Correct!" ; set points number 5 else say "Sorry the answer was" answer
+
+say points
+
+set win number 5
+if points equals win then say "You win!" else say "Sorry, you lose!"
