@@ -1,0 +1,24 @@
+$ ~~ -------------------------------------------------------- ~~ $
+$ ~~ --------- Programmer: AJ Cassell (@BrotatoBoi) --------- ~~ $
+$ ~~ ----------------- Program Name: If Else. --------------- ~~ $
+$ ~~ ---------------- Date: November/16/2021. --------------- ~~ $
+$ ~~ - Description: A simple program that check user input. - ~~ $
+$ ~~ -------------------------------------------------------- ~~ $
+
+
+$ ~ Clear the screen. ~ $
+clean
+
+$ ~ Create Variables. ~ $
+set guess words ""
+set answer words potato
+
+$ ~ Get user guess. ~ $
+get guess What food is this language named after?
+
+$ ~ Check users guess. ~ $
+if guess equals answer then say "Correct!" ; set guess number 5 else say "Sorry
+
+$ ~ Final words of proof! ~ $
+say "You can have multi-lines in the statements, proof:" guess
+say "(Also I realized that makes more sense when you read the source code...)"
