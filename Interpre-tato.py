@@ -20,7 +20,13 @@ class Interpreter:
         elif varType == "decimal":
             value = float(value)
         elif varType == "bool":
-            value = bool(value)
+            if value == "yes":
+                value = True
+            elif value == "no":
+                value = False
+            else:
+                print(f"ERROR ON: {value}")
+
         elif varType == "words":
             value = str(value)
 
@@ -41,7 +47,12 @@ class Interpreter:
 
         for word in message:
             if word in self.variables and not inString:
-                output += str(self.variables[word])
+                if self.variables[word] == True:
+                    output += 'yes '
+                elif self.variables[word] == False:
+                    output += 'no '
+                else:
+                    output += str(self.variables[word])+' '
             else:
                 for char in word:
                     if char == '"':
