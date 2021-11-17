@@ -1,14 +1,6 @@
-$ Test file
-$Error
-set guess string ""
-set answer string Ketchup
-set points number 0
-
-get guess Red condiment on a burger >> 
-
-if guess equals answer then say "Correct!" ; set points number 5 else say "Sorry the answer was" answer
-
-say points
-
-set win number 5
-if points equals win then say "You win!" else say "Sorry, you lose!"
+set floop words bloop
+set green number 420
+set cake decimal 3.14
+set isSimple bool yes
+set bugFree bool no
+say floop green cake isSimple bugFree
