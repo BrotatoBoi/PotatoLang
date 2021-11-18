@@ -12,6 +12,7 @@ import os
 class Interpreter:
     def __init__(self):
         self.variables = {}
+        self.__version__ = "V0.2.0"
 
 
     def set_var(self, varName, varType, value):
@@ -180,6 +181,9 @@ class Interpreter:
 
                 elif line[0] == 'whats':
                     self.what_are(line[1:])
+
+                elif line[0] == "version":
+                    print(f"Version: {self.__version__}")
                            
                 else:
                     print(f"ERROR ON: {line}")
