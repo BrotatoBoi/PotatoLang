@@ -1,4 +1,4 @@
-# PotatoLangV0.1.5
+# PotatoLangV0.2.0R1
 A custom programming language I am making. It is simple to use and has the extension of <var>.pot</var>
 
 # Usage:
@@ -9,18 +9,7 @@ To use my language it is currently only available through the interpreter, which
 <code>run [FILE]</code>
 
 # Documentation
-There will be updates so there will be more in the future!
-
-Starting a line with <code>$</code> means it is a comment and gets ignored by the interpreter. (Make sure there is a space after the '$')
-</br>
-To create a variable use the line has to read: <code>set [VARIABLE NAME] [VARIABLE TYPE] [VALUE]</code>
-</br>
-To print text to the screen the line should be: <code>say "[MESSAGE]" [VARIABLE]</code>
-</br>
-To get user input: <code>get [VARIABLE NAME] [MESSAGE]</code>
-</br>
-You can check variables with the following line: <code>if [CONDITION] then [CODE] else [CODE]</code>
-
+You can find the documentation >>[HERE](https://brotatoboi.github.io/PotatoLang/documentation.html)<<
 
 # Notes:
   * You can check the [examples folder](https://github.com/BrotatoBoi/PotatoLang/Examples) for an indepth code usage.
