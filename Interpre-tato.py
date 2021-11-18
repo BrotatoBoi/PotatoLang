@@ -19,7 +19,7 @@ class Interpreter:
             value = int(value)
         elif varType == "decimal":
             value = float(value)
-        elif varType == "bool":
+        elif varType == "yes/no":
             if value == "yes":
                 value = True
             elif value == "no":
@@ -112,6 +112,52 @@ class Interpreter:
                 for line in elseBlock:
                     self.proc_line(line)
 
+    def what_are(self, words):
+        keywords = {"say": "outputs some text: say [MESSAGE]",
+                    "set": "sets a variable to a value: set [VAR_NAME] [VAR_TYPE] [VAR_VALUE]",
+                    "get": "gets a variable: get [VAR_NAME] [MESSAGE]",
+                    "clean": "clears the screen: clear",
+                    "if": "Checks conditions: if [CONDITION] then [CODE]",
+                    "whats": "shows you what these words are, Y'know... this!"}
+
+        operators = {"equals": "checks if two variables equal each other."}
+
+        other = {"$": "conversation starter! Well, it just starts a comment... (Make sure to add a space after it)",
+                 ";": "line ender (Add a space before + after it and only useful in if/else)",
+                 "then": "word that stops checking conditions and run the code up until the 'else' word",
+                 "else": "word that works with if and cannot exist without it, it runs the rest of the line.",
+                 "yes": "True statement, On switch, 1 binary, e.g.",
+                 "no": "False statement, Off switch, 0 binary, e.g."} 
+
+        for word in words:
+            if word in self.variables:
+                varType = type(self.variables[word])
+
+                if varType == int:
+                    varType = "number"
+                
+                elif varType == float:
+                    varType = "decimal"
+
+                elif varType == bool:
+                    varType = "yes/no"
+
+                elif varType == str:
+                    varType = "buncha words"
+
+                print(f"{word} is a {varType} with the value of {self.variables[word]}")
+            
+            elif word in keywords:
+                print(f"{keywords[word]} is a keyword that {keywords.get(word)}")
+
+            elif word in operators:
+                print(f"{operators[word]} is an operator that {operators.get(word)}")
+
+            elif word in other:
+                print(f"{other[word]} is a {other.get(word)}")
+
+            else:
+                print(f"{word} is not a keyword, operator, variable or anything else!")    
 
     def proc_line(self, line):
             if line:
@@ -131,6 +177,9 @@ class Interpreter:
 
                 elif line[0] == 'if':
                     self.if_statement(line[1:])
+
+                elif line[0] == 'whats':
+                    self.what_are(line[1:])
                            
                 else:
                     print(f"ERROR ON: {line}")
