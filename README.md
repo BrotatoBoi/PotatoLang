@@ -1,4 +1,4 @@
-# PotatoLangV0.2.0R1
+# PotatoLangV0.2.2R2
 A custom programming language I am making. It is simple to use and has the extension of <var>.pot</var>
 
 # Usage:
