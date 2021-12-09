@@ -7,14 +7,14 @@ $ ~~ ------------------------------------------------------- ~~ $
 
 
 $ ~ Create Variables. ~ $
-set name string ""
+set name words ""
 
-clean
+wash
 
 $ ~ Get the users name and greet them. ~ $
 say "Hello, what is your name?"
-get name Name >> 
+get name Name >>
 
-clean
+wash
 
 say "Hello," name "!"

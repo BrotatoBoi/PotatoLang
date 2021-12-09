@@ -7,7 +7,7 @@ $ ~~ -------------------------------------------------------- ~~ $
 
 
 $ ~ Clear the screen. ~ $
-clean
+wash
 
 $ ~ Create Variables. ~ $
 set guess words ""
@@ -17,7 +17,7 @@ $ ~ Get user guess. ~ $
 get guess What food is this language named after?
 
 $ ~ Check users guess. ~ $
-if guess equals answer then say "Correct!" ; set guess number 5 else say "Sorry
+if guess equals answer then say "Correct!" ; set guess number 5 else say "Sorry, the answer is potato!"
 
 $ ~ Final words of proof! ~ $
 say "You can have multi-lines in the statements, proof:" guess
